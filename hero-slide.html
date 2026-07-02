@@ -17,7 +17,7 @@
   .hero {
     position: relative;
     width: 100%;
-    height: 420px;
+    height: 560px;
     overflow: hidden;
     border-radius: 12px;
   }
@@ -30,7 +30,7 @@
     transition: opacity 1.2s ease, transform 6s ease;
     display: flex;
     align-items: center;
-    padding: 0 60px;
+    padding: 0 90px;
   }
 
   .slide.active {
@@ -53,35 +53,35 @@
   .slide[data-slide="4"] { background: linear-gradient(135deg,#4a1c1c,#b91c1c); }
 
   .slide-content {
-    max-width: 560px;
+    max-width: 640px;
     color: #ffffff;
   }
 
   .eyebrow {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #7cc5ff;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     opacity: 0;
     transform: translateY(14px);
   }
 
   .slide-title {
-    font-size: 32px;
+    font-size: 44px;
     font-weight: 800;
-    margin: 0 0 14px 0;
-    line-height: 1.25;
+    margin: 0 0 18px 0;
+    line-height: 1.2;
     opacity: 0;
     transform: translateY(20px);
   }
 
   .slide-desc {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.65;
     color: rgba(255,255,255,0.85);
-    margin-bottom: 22px;
+    margin-bottom: 26px;
     opacity: 0;
     transform: translateY(20px);
   }
@@ -108,9 +108,9 @@
   .slide.active .slide-buttons { transition-delay: 0.52s; }
 
   .btn {
-    padding: 11px 22px;
+    padding: 14px 28px;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
@@ -130,16 +130,16 @@
 
   .dots {
     position: absolute;
-    bottom: 22px;
-    left: 60px;
+    bottom: 32px;
+    left: 90px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     z-index: 5;
   }
   .dot {
-    width: 26px;
-    height: 4px;
-    border-radius: 2px;
+    width: 34px;
+    height: 5px;
+    border-radius: 3px;
     background: rgba(255,255,255,0.35);
     cursor: pointer;
     overflow: hidden;
@@ -163,13 +163,13 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: rgba(255,255,255,0.15);
     border: none;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
     z-index: 5;
     display: flex;
@@ -178,14 +178,15 @@
     transition: background 0.2s ease;
   }
   .arrow:hover { background: rgba(255,255,255,0.3); }
-  .arrow.left { left: 16px; }
-  .arrow.right { right: 16px; }
+  .arrow.left { left: 24px; }
+  .arrow.right { right: 24px; }
 
   @media (max-width: 700px) {
-    .hero { height: 480px; }
-    .slide { padding: 0 24px; }
-    .slide-title { font-size: 24px; }
-    .dots { left: 24px; }
+    .hero { height: 620px; }
+    .slide { padding: 0 28px; }
+    .slide-title { font-size: 30px; }
+    .slide-desc { font-size: 15px; }
+    .dots { left: 28px; }
   }
 </style>
 </head>
