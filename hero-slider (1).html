@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Hero Slider</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #292929;
+    overflow: hidden;
+  }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { width: 0; height: 0; }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1.2s ease, transform 6s ease;
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+    transition: opacity 1.2s ease, transform 6s ease;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  /* Nền màu gradient riêng cho từng slide, thay bằng background-image nếu cần ảnh thật */
+  .slide[data-slide="0"] { background: linear-gradient(135deg,#1c2b4a,#0f4c81); }
+  .slide[data-slide="1"] { background: linear-gradient(135deg,#0f3d5c,#0e7490); }
+  .slide[data-slide="2"] { background: linear-gradient(135deg,#3b1f5c,#7c3aed); }
+  .slide[data-slide="3"] { background: linear-gradient(135deg,#1f3b2e,#0d9488); }
+  .slide[data-slide="4"] { background: linear-gradient(135deg,#4a1c1c,#b91c1c); }
+
+  .slide-content {
+    max-width: 560px;
+    color: #ffffff;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7cc5ff;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .slide-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 14px 0;
+    line-height: 1.25;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .slide-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 22px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .slide-buttons {
+    display: flex;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .slide.active .eyebrow,
+  .slide.active .slide-title,
+  .slide.active .slide-desc,
+  .slide.active .slide-buttons {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .slide.active .eyebrow { transition-delay: 0.15s; }
+  .slide.active .slide-title { transition-delay: 0.28s; }
+  .slide.active .slide-desc { transition-delay: 0.40s; }
+  .slide.active .slide-buttons { transition-delay: 0.52s; }
+
+  .btn {
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: #4fa3f7;
+    color: #ffffff;
+  }
+  .btn-primary:hover { background: #3a8fe0; }
+  .btn-ghost {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+  .btn-ghost:hover { border-color: #ffffff; }
+
+  .dots {
+    position: absolute;
+    bottom: 22px;
+    left: 60px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+  .dot {
+    width: 26px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+  .dot .fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    background: #ffffff;
+  }
+  .dot.active .fill {
+    animation: fillDot 5s linear forwards;
+  }
+  @keyframes fillDot {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .arrow:hover { background: rgba(255,255,255,0.3); }
+  .arrow.left { left: 16px; }
+  .arrow.right { right: 16px; }
+
+  @media (max-width: 700px) {
+    .hero { height: 480px; }
+    .slide { padding: 0 24px; }
+    .slide-title { font-size: 24px; }
+    .dots { left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero" id="hero">
+
+  <div class="slide active" data-slide="0">
+    <div class="slide-content">
+      <div class="eyebrow">Chính sách nội bộ</div>
+      <h1 class="slide-title">Nội Quy Công Ty</h1>
+      <p class="slide-desc">Quy định về giờ giấc làm việc, tác phong, quyền lợi và trách nhiệm của nhân viên — nền tảng xây dựng môi trường làm việc chuyên nghiệp, minh bạch.</p>
+      <div class="slide-buttons">
+        <a class="btn btn-primary" href="#">Xem chi tiết</a>
+        <a class="btn btn-ghost" href="#">Tải văn bản</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="1">
+    <div class="slide-content">
+      <div class="eyebrow">Tiêu chuẩn quốc tế</div>
+      <h1 class="slide-title">ISO/IEC 27001:2019</h1>
+      <p class="slide-desc">Hệ thống quản lý an toàn thông tin đạt chuẩn quốc tế, đảm bảo dữ liệu công ty và khách hàng luôn được bảo vệ ở mức cao nhất.</p>
+      <div class="slide-buttons">
+        <a class="btn btn-primary" href="#">Tìm hiểu thêm</a>
+        <a class="btn btn-ghost" href="#">Chứng chỉ ISO</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="2">
+    <div class="slide-content">
+      <div class="eyebrow">Phát triển nhân sự</div>
+      <h1 class="slide-title">Đào Tạo Nội Bộ</h1>
+      <p class="slide-desc">Chương trình đào tạo định kỳ giúp nhân viên nâng cao chuyên môn, kỹ năng nghiệp vụ và bắt kịp công nghệ mới trong ngành.</p>
+      <div class="slide-buttons">
+        <a class="btn btn-primary" href="#">Lịch đào tạo</a>
+        <a class="btn btn-ghost" href="#">Đăng ký khóa học</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="3">
+    <div class="slide-content">
+      <div class="eyebrow">Chuẩn hóa văn bản</div>
+      <h1 class="slide-title">Định Dạng Văn Bản</h1>
+      <p class="slide-desc">Quy chuẩn trình bày văn bản, biểu mẫu và tài liệu nội bộ, đảm bảo tính thống nhất và chuyên nghiệp trong toàn công ty.</p>
+      <div class="slide-buttons">
+        <a class="btn btn-primary" href="#">Xem mẫu chuẩn</a>
+        <a class="btn btn-ghost" href="#">Tải template</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-slide="4">
+    <div class="slide-content">
+      <div class="eyebrow">Chăm sóc khách hàng</div>
+      <h1 class="slide-title">Ứng Dụng Liên Hệ Khách Hàng</h1>
+      <p class="slide-desc">Hướng dẫn sử dụng các công cụ liên hệ, chăm sóc và hỗ trợ khách hàng hiệu quả, chuyên nghiệp trên mọi nền tảng.</p>
+      <div class="slide-buttons">
+        <a class="btn btn-primary" href="#">Hướng dẫn sử dụng</a>
+        <a class="btn btn-ghost" href="#">Liên hệ hỗ trợ</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="arrow left" onclick="goTo(current-1)">&#10094;</button>
+  <button class="arrow right" onclick="goTo(current+1)">&#10095;</button>
+
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const total = slides.length;
+  let current = 0;
+  let timer;
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.innerHTML = '<div class="fill"></div>';
+    dot.onclick = () => goTo(i);
+    dotsWrap.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.dot');
+
+  function render() {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      if (i === current) {
+        const fill = d.querySelector('.fill');
+        fill.style.animation = 'none';
+        void fill.offsetWidth;
+        fill.style.animation = null;
+      }
+    });
+  }
+
+  function goTo(index) {
+    current = ((index % total) + total) % total;
+    render();
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  render();
+  resetTimer();
+</script>
+
+</body>
+</html>
