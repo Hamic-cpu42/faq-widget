@@ -45,12 +45,43 @@
     z-index: 1;
   }
 
-  /* Nền màu gradient riêng cho từng slide, thay bằng background-image nếu cần ảnh thật */
-  .slide[data-slide="0"] { background: linear-gradient(135deg,#1c2b4a,#0f4c81); }
-  .slide[data-slide="1"] { background: linear-gradient(135deg,#0f3d5c,#0e7490); }
-  .slide[data-slide="2"] { background: linear-gradient(135deg,#3b1f5c,#7c3aed); }
-  .slide[data-slide="3"] { background: linear-gradient(135deg,#1f3b2e,#0d9488); }
-  .slide[data-slide="4"] { background: linear-gradient(135deg,#4a1c1c,#b91c1c); }
+  .slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.12) 100%);
+    z-index: 0;
+  }
+  .slide-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .slide[data-slide="0"] {
+    background-image: url('Noiquy.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .slide[data-slide="1"] {
+    background-image: url('Security.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .slide[data-slide="2"] {
+    background-image: url('Daotao.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .slide[data-slide="3"] {
+    background-image: url('Vanban.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .slide[data-slide="4"] {
+    background-image: url('Ungdung.png');
+    background-size: cover;
+    background-position: center;
+  }
 
   .slide-content {
     max-width: 640px;
@@ -233,7 +264,7 @@
       <h1 class="slide-title">Định Dạng Văn Bản</h1>
       <p class="slide-desc">Quy chuẩn trình bày văn bản, biểu mẫu và tài liệu nội bộ, đảm bảo tính thống nhất và chuyên nghiệp trong toàn công ty.</p>
       <div class="slide-buttons">
-        <a class="btn btn-primary" href="https://binhminhitclabb.sharepoint.com/sites/CommunicationBnhMinhITC/Ti%20liu%20cng%20ty/Forms/AllItems.aspx?id=%2Fsites%2FCommunicationBnhMinhITC%2FTi%20liu%20cng%20ty%2FKh%E1%BA%A3%20n%C4%83ng%20c%E1%BB%A7a%20copilot%20tr%C3%AAn%20Outlook%20web%2Epdf&parent=%2Fsites%2FCommunicationBnhMinhITC%2FTi%20liu%20cng%20ty" target="_top">Xem chi tiết &#8594;</a>
+        <a class="btn btn-primary" href="https://binhminhitclabb.sharepoint.com/:u:/s/CommunicationBnhMinhITC/IQAdsjzSe9a-S6H6dpmMs2G9AbdNq-gMjkE7lfopz_ZJNZQ?e=mIeKf8" target="_top">Xem chi tiết &#8594;</a>
       </div>
     </div>
   </div>
@@ -244,7 +275,7 @@
       <h1 class="slide-title">Ứng Dụng Liên Hệ Khách Hàng</h1>
       <p class="slide-desc">Hướng dẫn sử dụng các công cụ liên hệ, chăm sóc và hỗ trợ khách hàng hiệu quả, chuyên nghiệp trên mọi nền tảng.</p>
       <div class="slide-buttons">
-        <a class="btn btn-primary" href="https://binhminhitclabb.sharepoint.com/:u:/s/CommunicationBnhMinhITC/IQDwIExwInpnRKQTgDC_5AVsAYsqEvnrQXtEPbAQGZfFB0E?e=T8anfE" target="_top">Xem chi tiết &#8594;</a>
+        <a class="btn btn-primary" href="https://binhminhitclabb.sharepoint.com/sites/CommunicationBnhMinhITC/Ti%20liu%20cng%20ty/Forms/AllItems.aspx?id=%2Fsites%2FCommunicationBnhMinhITC%2FTi%20liu%20cng%20ty%2FKh%E1%BA%A3%20n%C4%83ng%20c%E1%BB%A7a%20copilot%20tr%C3%AAn%20Outlook%20web%2Epdf&parent=%2Fsites%2FCommunicationBnhMinhITC%2FTi%20liu%20cng%20ty" target="_blank">Xem chi tiết &#8594;</a>
       </div>
     </div>
   </div>
